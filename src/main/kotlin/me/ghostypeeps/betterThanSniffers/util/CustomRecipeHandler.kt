@@ -1,14 +1,12 @@
-package me.ghostypeeps.betterThanSniffers.utils
+package me.ghostypeeps.betterThanSniffers.util
 
-import me.ghostypeeps.betterThanSniffers.utils.Items
-import me.ghostypeeps.betterThanSniffers.BetterThanSniffers
-import me.ghostypeeps.betterThanSniffers.SnifferUtil.SNIFFER_PLUGIN
+import me.ghostypeeps.betterThanSniffers.item.Items
+import me.ghostypeeps.betterThanSniffers.util.SnifferUtil.SNIFFER_PLUGIN
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.Tag
 import org.bukkit.inventory.*
-import org.bukkit.plugin.java.JavaPlugin.getPlugin
 
 // utility class
 // todo: remove some more vanilla recipes i probably missed

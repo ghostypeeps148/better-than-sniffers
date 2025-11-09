@@ -2,7 +2,7 @@ package me.ghostypeeps.betterThanSniffers.listeners
 
 
 
-import me.ghostypeeps.betterThanSniffers.utils.Items
+import me.ghostypeeps.betterThanSniffers.item.Items
 import org.bukkit.entity.Squid
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener

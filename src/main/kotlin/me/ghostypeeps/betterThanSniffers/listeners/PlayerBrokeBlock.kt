@@ -1,7 +1,7 @@
 package me.ghostypeeps.betterThanSniffers.listeners
 
 
-import me.ghostypeeps.betterThanSniffers.utils.Items
+import me.ghostypeeps.betterThanSniffers.item.Items
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener

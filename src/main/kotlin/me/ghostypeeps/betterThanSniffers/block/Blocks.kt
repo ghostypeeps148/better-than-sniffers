@@ -1,6 +1,5 @@
 package me.ghostypeeps.betterThanSniffers.block
 
-import me.ghostypeeps.betterThanSniffers.SnifferUtil
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries

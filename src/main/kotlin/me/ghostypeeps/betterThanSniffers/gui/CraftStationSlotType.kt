@@ -1,6 +1,6 @@
-package me.ghostypeeps.betterThanSniffers.utils.api
+package me.ghostypeeps.betterThanSniffers.gui
 
-import me.ghostypeeps.betterThanSniffers.utils.Items
+import me.ghostypeeps.betterThanSniffers.item.Items
 import org.bukkit.inventory.ItemStack
 
 enum class CraftStationSlotType (val item: ItemStack?) {

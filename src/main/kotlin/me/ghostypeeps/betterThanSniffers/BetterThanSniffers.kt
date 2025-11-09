@@ -1,16 +1,12 @@
 package me.ghostypeeps.betterThanSniffers
 
-import me.ghostypeeps.betterThanSniffers.block.Blocks
-import me.ghostypeeps.betterThanSniffers.commands.Serialize
+import me.ghostypeeps.betterThanSniffers.listeners.EntityDeath
 import me.ghostypeeps.betterThanSniffers.listeners.PlayerBrokeBlock
 import me.ghostypeeps.betterThanSniffers.listeners.PlayerKnapping
-import me.ghostypeeps.betterThanSniffers.utils.CustomRecipeHandler
-import me.ghostypeeps.betterThanSniffers.utils.Items
-import me.ghostypeeps.betterThanSniffers.utils.ResourcePackCreationTest
-import me.ghostypeeps.betterThanSniffers.utils.api.CraftAPI
-import me.ghostypeeps.betterThanSniffers.utils.api.CraftStationSlotType
-import org.bukkit.craftbukkit.generator.CustomChunkGenerator
-import org.bukkit.generator.ChunkGenerator
+import me.ghostypeeps.betterThanSniffers.util.CustomRecipeHandler
+import me.ghostypeeps.betterThanSniffers.item.Items
+import me.ghostypeeps.betterThanSniffers.util.ResourcePackCreationTest
+import me.ghostypeeps.betterthansniffers.listeners.PlayerJoined
 import org.bukkit.plugin.java.JavaPlugin
 
 
@@ -67,8 +63,9 @@ class BetterThanSniffers : JavaPlugin() {
     */
     private fun registerListeners() {
         server.pluginManager.registerEvents(PlayerKnapping(), this)
-        // server.pluginManager.registerEvents(PlayerJoined(), this)
+        server.pluginManager.registerEvents(PlayerJoined(), this)
         server.pluginManager.registerEvents(PlayerBrokeBlock(), this)
+        server.pluginManager.registerEvents(EntityDeath(), this)
         // server.pluginManager.registerEvents(PlayerInventoryClick(), this)
     }
     override fun onDisable() {

@@ -1,4 +1,5 @@
-package me.ghostypeeps.betterThanSniffers.utils.api
+package me.ghostypeeps.betterThanSniffers.item
+
 import java.awt.Color
 import java.awt.image.BufferedImage
 

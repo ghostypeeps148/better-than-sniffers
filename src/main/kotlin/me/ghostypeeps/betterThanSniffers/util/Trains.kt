@@ -1,4 +1,4 @@
-package me.ghostypeeps.betterThanSniffers.utils
+package me.ghostypeeps.betterThanSniffers.util
 
 import java.time.LocalDate
 

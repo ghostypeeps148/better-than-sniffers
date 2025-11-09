@@ -1,6 +1,6 @@
 package me.ghostypeeps.betterThanSniffers.listeners
 
-import me.ghostypeeps.betterThanSniffers.utils.api.CraftAPI
+import me.ghostypeeps.betterThanSniffers.gui.CraftAPI
 import net.kyori.adventure.text.Component
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener

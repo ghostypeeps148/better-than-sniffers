@@ -1,6 +1,6 @@
-package me.ghostypeeps.betterThanSniffers.utils.api
+package me.ghostypeeps.betterThanSniffers.item
 
-import me.ghostypeeps.betterThanSniffers.utils.ResourcePackCreationTest
+import me.ghostypeeps.betterThanSniffers.util.ResourcePackCreationTest
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -19,12 +19,6 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import java.nio.file.StandardOpenOption
 
-// should probably make it actually a builder pattern
-// but you know what they say:
-// if it aint broke dont fix it
-// (source: i tried and then proceeded to break every other class in the plugin)
-// no idea whats going on in the generics
-// inheritance is weird
 /**
  * An abstract that is used for all item like objects, ex: blocks, skulls, gui buttons, regular items
  * @param name

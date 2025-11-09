@@ -1,4 +1,4 @@
-package me.ghostypeeps.betterThanSniffers.utils.api
+package me.ghostypeeps.betterThanSniffers.item
 
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack

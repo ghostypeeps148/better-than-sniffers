@@ -1,8 +1,8 @@
 package me.ghostypeeps.betterThanSniffers.commands
 
 import me.ghostypeeps.betterThanSniffers.block.Blocks
-import me.ghostypeeps.betterThanSniffers.utils.api.CraftAPI
-import me.ghostypeeps.betterThanSniffers.utils.api.CraftStationSlotType
+import me.ghostypeeps.betterThanSniffers.gui.CraftAPI
+import me.ghostypeeps.betterThanSniffers.gui.CraftStationSlotType
 import net.kyori.adventure.text.Component
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor

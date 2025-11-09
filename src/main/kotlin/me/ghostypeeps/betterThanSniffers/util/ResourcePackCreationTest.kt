@@ -1,4 +1,4 @@
-package me.ghostypeeps.betterThanSniffers.utils
+package me.ghostypeeps.betterThanSniffers.util
 
 import org.apache.commons.io.FileUtils
 import java.io.BufferedReader
