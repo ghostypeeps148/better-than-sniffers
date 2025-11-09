@@ -1,11 +1,14 @@
-package me.ghostypeeps.betterThanSniffers.utils.api
+package me.ghostypeeps.betterThanSniffers.block
 
 import org.bukkit.Material
 import org.bukkit.block.BlockFace
 import org.bukkit.block.data.BlockData
 import org.bukkit.block.data.type.ChiseledBookshelf
-// v2
-class CBCustomBlockData(index : Int) {
+
+/**
+ * Leftover code.
+ */
+class ClientBlock(index : Int) {
     private var blockData : BlockData;
     private var index : Int;
     init {

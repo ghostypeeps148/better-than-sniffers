@@ -1,5 +1,6 @@
 package me.ghostypeeps.betterThanSniffers
 
+import me.ghostypeeps.betterThanSniffers.block.Blocks
 import me.ghostypeeps.betterThanSniffers.commands.Serialize
 import me.ghostypeeps.betterThanSniffers.listeners.PlayerBrokeBlock
 import me.ghostypeeps.betterThanSniffers.listeners.PlayerKnapping
@@ -44,7 +45,8 @@ SOFTWARE.
 class BetterThanSniffers : JavaPlugin() {
     override fun onEnable() {
         dataFolder.mkdirs()
-        getCommand("better-than-sniffers")!!.setExecutor(Serialize())
+        // i am far too lazy to port my command to paper plugin right now so i will not. :( rip easy testing
+        // getCommand("better-than-sniffers")!!.setExecutor(Serialize())
 
         Items.init()
 
@@ -55,10 +57,14 @@ class BetterThanSniffers : JavaPlugin() {
 
     }
 
+
+
+    /*
+
     override fun getDefaultWorldGenerator(worldName: String, id: String?): ChunkGenerator {
         return SnifferWorldGenerator()
     }
-
+    */
     private fun registerListeners() {
         server.pluginManager.registerEvents(PlayerKnapping(), this)
         // server.pluginManager.registerEvents(PlayerJoined(), this)

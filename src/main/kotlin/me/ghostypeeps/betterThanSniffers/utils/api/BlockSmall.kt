@@ -8,7 +8,9 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
 import java.util.*
 
-
+/**
+ * Test.
+ */
 class BlockSmall(name: String, index: String) : ItemLike<BlockSmall>(name, index) {
     companion object {
         var add_to_geyser_heads : HashSet<String> = HashSet()

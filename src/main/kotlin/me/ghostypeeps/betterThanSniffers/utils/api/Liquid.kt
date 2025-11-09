@@ -2,9 +2,12 @@ package me.ghostypeeps.betterThanSniffers.utils.api
 import java.awt.Color
 import java.awt.image.BufferedImage
 
+/**
+ * Creates Liquids that work something like GTCEU Modern Liquid holders.
+ */
 open class Liquid {
-    val gui_form: Item;
-    val bucketed_form: Item;
+    //val gui_form: Item;
+    //val bucketed_form: Item;
 
     fun makeTexture(inp: BufferedImage, bucket: BufferedImage, tintColor: Color): BufferedImage {
         // Create a new image for the tinted grayscale image

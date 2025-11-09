@@ -12,7 +12,7 @@ import java.net.URL
 
 
 /**
- * generates a resource pack
+ * Creates a resource pack to set textures for the clients.
  */
 object ResourcePackCreationTest {
     const val DESTINATION = "plugins/BetterThanSniffers/sniffer.zip";

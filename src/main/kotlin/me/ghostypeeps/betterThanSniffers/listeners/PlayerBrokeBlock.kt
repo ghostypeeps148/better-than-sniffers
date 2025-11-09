@@ -8,10 +8,16 @@ import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.inventory.ItemStack
 
+/**
+ * Runs when players break blocks.
+ */
 class PlayerBrokeBlock : Listener {
     @EventHandler
     fun breakHandler(event: BlockBreakEvent) {
         val block = event.block
+        /**
+         * Switch case to check which blocks the player broke.
+         */
         when (block.type) {
             Material.STONE -> {
                 if (event.player.inventory.itemInMainHand.type == Material.WOODEN_PICKAXE) {

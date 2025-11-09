@@ -1,9 +1,9 @@
 package me.ghostypeeps.betterThanSniffers.listeners
 
 
+import com.destroystokyo.paper.MaterialTags
 import me.ghostypeeps.betterThanSniffers.utils.Items
 import org.bukkit.Material
-import org.bukkit.block.Block
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
@@ -18,6 +18,16 @@ class PlayerKnapping : Listener {
         }
         if (event.action == Action.RIGHT_CLICK_BLOCK && event.item == Items.SAW.asItemStack()) {
             //event.clickedBlock == Material.STONE_STAIRS
+        }
+        if (event.clickedBlock == null) {
+            return
+        }
+        val block = event.clickedBlock!!
+        if (event.action == Action.RIGHT_CLICK_BLOCK && event.item?.type == Material.HONEYCOMB && block.type == Material.OXIDIZED_COPPER_CHAIN) {
+            event.isCancelled = true
+        }
+        if (event.action == Action.RIGHT_CLICK_BLOCK && MaterialTags.AXES.values.contains(event.item?.type) && block.type == Material.WAXED_OXIDIZED_COPPER_CHAIN) {
+            event.isCancelled = true
         }
     }
 }

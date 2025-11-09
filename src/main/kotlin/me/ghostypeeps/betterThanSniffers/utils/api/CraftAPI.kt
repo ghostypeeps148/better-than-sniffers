@@ -8,6 +8,9 @@ import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.InventoryHolder
 import org.bukkit.inventory.ItemStack
 
+/**
+ * Creates GUIs for Better Than Sniffers.
+ */
 object CraftAPI : InventoryHolder{
     const val NUMBER_SLOTS = 9;
     private var inventory: Inventory = Bukkit.createInventory(this, NUMBER_SLOTS);
