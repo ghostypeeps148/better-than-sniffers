@@ -1,5 +1,6 @@
 package me.ghostypeeps.betterThanSniffers.block
 
+import me.ghostypeeps.betterThanSniffers.util.SnifferUtil.SNIFFER_ID
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
@@ -12,6 +13,7 @@ import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockBehaviour
 import org.bukkit.craftbukkit.entity.CraftPlayer
 import org.bukkit.entity.Player
+import java.lang.reflect.Field
 
 /**
  * Creates blocks by adding them to the net.minecraft.server Block registry.
@@ -21,11 +23,13 @@ object Blocks {
      * This is where the blocks are initialized.
      */
     lateinit var test: Block;
+    lateinit var unmodifiedRegistry: Registry<Block>;
     /**
      * This function is called from SnifferBootstrap, before the server freezes the block registry, so we can add it before the server stops allowing that.
      */
     fun init() {
-        val key = ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("btsniffers", "test"))
+        unmodifiedRegistry = BuiltInRegistries.BLOCK
+        val key = ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(SNIFFER_ID, "test"))
         test = Block(BlockBehaviour.Properties.of().strength(0.5F, 0.6F).setId(key))
         Registry.register(BuiltInRegistries.BLOCK, key, test)
         println("This Code Is Running1!!!!!!!")

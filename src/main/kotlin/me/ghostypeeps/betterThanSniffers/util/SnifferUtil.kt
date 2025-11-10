@@ -12,4 +12,5 @@ import org.bukkit.plugin.java.JavaPlugin
 object SnifferUtil {
     val SERVER : MinecraftServer = (Bukkit.getServer() as CraftServer).server
     val SNIFFER_PLUGIN = JavaPlugin.getPlugin(BetterThanSniffers::class.java)
+    const val SNIFFER_ID = "btsniffers"
 }

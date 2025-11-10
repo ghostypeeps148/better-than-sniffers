@@ -23,11 +23,5 @@ class PlayerKnapping : Listener {
             return
         }
         val block = event.clickedBlock!!
-        if (event.action == Action.RIGHT_CLICK_BLOCK && event.item?.type == Material.HONEYCOMB && block.type == Material.OXIDIZED_COPPER_CHAIN) {
-            event.isCancelled = true
-        }
-        if (event.action == Action.RIGHT_CLICK_BLOCK && MaterialTags.AXES.values.contains(event.item?.type) && block.type == Material.WAXED_OXIDIZED_COPPER_CHAIN) {
-            event.isCancelled = true
-        }
     }
 }

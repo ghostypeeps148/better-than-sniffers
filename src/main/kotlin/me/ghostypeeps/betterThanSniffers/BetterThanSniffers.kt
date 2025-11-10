@@ -5,8 +5,8 @@ import me.ghostypeeps.betterThanSniffers.listeners.PlayerBrokeBlock
 import me.ghostypeeps.betterThanSniffers.listeners.PlayerKnapping
 import me.ghostypeeps.betterThanSniffers.util.CustomRecipeHandler
 import me.ghostypeeps.betterThanSniffers.item.Items
+import me.ghostypeeps.betterThanSniffers.listeners.PlayerJoined
 import me.ghostypeeps.betterThanSniffers.util.ResourcePackCreationTest
-import me.ghostypeeps.betterthansniffers.listeners.PlayerJoined
 import org.bukkit.plugin.java.JavaPlugin
 
 

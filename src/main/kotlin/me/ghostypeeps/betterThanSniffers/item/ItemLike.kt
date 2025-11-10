@@ -1,6 +1,7 @@
 package me.ghostypeeps.betterThanSniffers.item
 
 import me.ghostypeeps.betterThanSniffers.util.ResourcePackCreationTest
+import me.ghostypeeps.betterThanSniffers.util.SnifferUtil.SNIFFER_ID
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -30,7 +31,7 @@ abstract class ItemLike<T : ItemLike<T>>(name: String,
                         val index: String)
 {
     protected open var item : ItemStack = ItemStack.of(Material.PRISMARINE_CRYSTALS);
-    protected val customItemKey = NamespacedKey("btsniffers", "item_$index")
+    protected val customItemKey = NamespacedKey(SNIFFER_ID, "item_$index")
 
     init {
         val meta : ItemMeta = item.itemMeta
