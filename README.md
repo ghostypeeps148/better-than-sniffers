@@ -6,6 +6,7 @@ uh basically just a really sketchy programming tutorial
 
 Items are registered through the Items object, and you can create a instance of that item to give to a player using Items#asItemStack(). 
 Blocks are registered through the Blocks object, and I use hot garbage packet nonsense to display these on the client. Since the server's registry gets shifted to the left, kinda like this
+
 server  client
 
 test    air
