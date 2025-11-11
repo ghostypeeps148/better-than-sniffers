@@ -44,10 +44,17 @@ object BlockPacketFix {
                             for (i in sections.indices) {
                                 val section = sections[i]
                                 if (section.hasOnlyAir()) continue
-                                for (x in 0 until 16)
-                                    for (y in 0 until 16)
-                                        for (z in 0 until 16)
-                                            // section.states.set(x, y, z, Blocks.OAK_PLANKS.defaultBlockState())
+                                val r_buf = FriendlyByteBuf(Unpooled.buffer())
+                                section.states.write(r_buf)
+                                val palette = section.states
+                                for (i in 0..palette.size) {
+                                    val old: BlockState = palette.valueFor(i)
+                                    val new: BlockState =
+                                        BuiltInRegistries.BLOCK.byId(BuiltInRegistries.BLOCK.getId(old) - 1)
+
+                                    palette.setValue(i, new)
+                                }
+
                                 primaryBitMask = primaryBitMask or (1 shl i)
                             }
                             buf.writeVarInt(primaryBitMask)
