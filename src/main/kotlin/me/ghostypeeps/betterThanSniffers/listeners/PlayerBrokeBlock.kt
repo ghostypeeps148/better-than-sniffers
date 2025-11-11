@@ -35,21 +35,21 @@ class PlayerBrokeBlock : Listener {
             Material.COPPER_ORE, Material.DEEPSLATE_COPPER_ORE -> {
                 if (event.player.inventory.itemInMainHand.type == Material.WOODEN_PICKAXE) {
                     event.isCancelled = true;
-                    block.world.dropItemNaturally(block.location, ItemStack(Material.RAW_COPPER))
+                    block.world.dropItemNaturally(block.location, ItemStack.of(Material.RAW_COPPER))
                     block.type = Material.COBBLESTONE
                 }
             }
             Material.COAL_ORE, Material.DEEPSLATE_COAL_ORE -> {
                 if (event.player.inventory.itemInMainHand.type == Material.WOODEN_PICKAXE) {
                     event.isCancelled = true;
-                    block.world.dropItemNaturally(block.location, ItemStack(Material.COAL))
+                    block.world.dropItemNaturally(block.location, ItemStack.of(Material.COAL))
                     block.type = Material.COBBLESTONE
                 }
             }
             Material.DIAMOND_ORE, Material.DEEPSLATE_DIAMOND_ORE -> {
                 if (event.player.inventory.itemInMainHand.type == Material.STONE_PICKAXE) {
                     event.isCancelled = true;
-                    block.world.dropItemNaturally(block.location, ItemStack(Material.DIAMOND))
+                    block.world.dropItemNaturally(block.location, ItemStack.of(Material.DIAMOND))
                     block.type = Material.COBBLESTONE
                 }
             }
