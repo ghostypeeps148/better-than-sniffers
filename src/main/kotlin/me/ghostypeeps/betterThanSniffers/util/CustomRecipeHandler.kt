@@ -1,13 +1,12 @@
-package me.ghostypeeps.betterThanSniffers.utils
+package me.ghostypeeps.betterThanSniffers.util
 
-import me.ghostypeeps.betterThanSniffers.utils.Items
-import me.ghostypeeps.betterThanSniffers.BetterThanSniffers
+import me.ghostypeeps.betterThanSniffers.item.Items
+import me.ghostypeeps.betterThanSniffers.util.SnifferUtil.SNIFFER_PLUGIN
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.Tag
 import org.bukkit.inventory.*
-import org.bukkit.plugin.java.JavaPlugin.getPlugin
 
 // utility class
 // todo: remove some more vanilla recipes i probably missed
@@ -89,19 +88,19 @@ object CustomRecipeHandler {
         }
 
         private fun registerCampfireRecipe(id : String, result : ItemStack, input : ItemStack, exp : Float, cookingTime : Int) {
-            val key = NamespacedKey(getPlugin(BetterThanSniffers::class.java), id)
+            val key = NamespacedKey(SNIFFER_PLUGIN, id)
             val r = CampfireRecipe(key, result, RecipeChoice.ExactChoice(input), exp, cookingTime)
             Bukkit.getServer().addRecipe(r)
         }
 
         private fun registerSmithingRecipe(id : String, result : ItemStack, template: ItemStack, base: ItemStack, addition: ItemStack) {
-            val key = NamespacedKey(getPlugin(BetterThanSniffers::class.java), id)
+            val key = NamespacedKey(SNIFFER_PLUGIN, id)
             val r = SmithingTransformRecipe(key, result, RecipeChoice.ExactChoice(template), RecipeChoice.ExactChoice(base), RecipeChoice.ExactChoice(addition))
             Bukkit.getServer().addRecipe(r)
         }
 
         private fun registerShapedRecipe(id : String,shape : Array<String>, result : ItemStack, key1 : ItemStack, key2 : ItemStack? = null, key3 : ItemStack? = null) {
-            val key = NamespacedKey(getPlugin(BetterThanSniffers::class.java), id)
+            val key = NamespacedKey(SNIFFER_PLUGIN, id)
             val r = ShapedRecipe(key, result)
             r.shape(*shape)
             r.setIngredient('A', key1);
@@ -114,12 +113,12 @@ object CustomRecipeHandler {
             Bukkit.getServer().removeRecipe(NamespacedKey(NamespacedKey.MINECRAFT,id))
         }
         private fun registerFurnaceRecipe(id : String, result: ItemStack, input: Material) {
-            val key = NamespacedKey(getPlugin(BetterThanSniffers::class.java), id)
+            val key = NamespacedKey(SNIFFER_PLUGIN, id)
             val r = FurnaceRecipe(key, result, input, 0.5F, 200);
             Bukkit.getServer().addRecipe(r)
         }
         private fun registerShapelessRecipe(id : String, items : List<ItemStack>,  result : ItemStack) {
-            val key = NamespacedKey(getPlugin(BetterThanSniffers::class.java), id)
+            val key = NamespacedKey(SNIFFER_PLUGIN, id)
             val r = ShapelessRecipe(key, result)
             for (item in items) {r.addIngredient(item)}
             Bukkit.getServer().addRecipe(r)

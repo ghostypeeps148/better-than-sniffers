@@ -1,14 +1,18 @@
-package me.ghostypeeps.betterThanSniffers.utils.api
+package me.ghostypeeps.betterThanSniffers.block
 
 import com.destroystokyo.paper.profile.PlayerProfile
 import com.destroystokyo.paper.profile.ProfileProperty
+import me.ghostypeeps.betterThanSniffers.item.ItemLike
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
-import java.util.*
+import java.util.HashSet
+import java.util.UUID
 
-
+/**
+ * Test.
+ */
 class BlockSmall(name: String, index: String) : ItemLike<BlockSmall>(name, index) {
     companion object {
         var add_to_geyser_heads : HashSet<String> = HashSet()

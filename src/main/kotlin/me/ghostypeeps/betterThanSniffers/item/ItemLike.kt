@@ -1,6 +1,7 @@
-package me.ghostypeeps.betterThanSniffers.utils.api
+package me.ghostypeeps.betterThanSniffers.item
 
-import me.ghostypeeps.betterThanSniffers.utils.ResourcePackCreationTest
+import me.ghostypeeps.betterThanSniffers.util.ResourcePackCreationTest
+import me.ghostypeeps.betterThanSniffers.util.SnifferUtil.SNIFFER_ID
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -19,12 +20,6 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import java.nio.file.StandardOpenOption
 
-// should probably make it actually a builder pattern
-// but you know what they say:
-// if it aint broke dont fix it
-// (source: i tried and then proceeded to break every other class in the plugin)
-// no idea whats going on in the generics
-// inheritance is weird
 /**
  * An abstract that is used for all item like objects, ex: blocks, skulls, gui buttons, regular items
  * @param name
@@ -36,7 +31,7 @@ abstract class ItemLike<T : ItemLike<T>>(name: String,
                         val index: String)
 {
     protected open var item : ItemStack = ItemStack.of(Material.PRISMARINE_CRYSTALS);
-    protected val customItemKey = NamespacedKey("btsniffers", "item_$index")
+    protected val customItemKey = NamespacedKey(SNIFFER_ID, "item_$index")
 
     init {
         val meta : ItemMeta = item.itemMeta

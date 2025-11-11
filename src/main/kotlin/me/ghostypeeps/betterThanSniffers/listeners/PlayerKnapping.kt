@@ -1,9 +1,9 @@
 package me.ghostypeeps.betterThanSniffers.listeners
 
 
-import me.ghostypeeps.betterThanSniffers.utils.Items
+import com.destroystokyo.paper.MaterialTags
+import me.ghostypeeps.betterThanSniffers.item.Items
 import org.bukkit.Material
-import org.bukkit.block.Block
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
@@ -19,5 +19,9 @@ class PlayerKnapping : Listener {
         if (event.action == Action.RIGHT_CLICK_BLOCK && event.item == Items.SAW.asItemStack()) {
             //event.clickedBlock == Material.STONE_STAIRS
         }
+        if (event.clickedBlock == null) {
+            return
+        }
+        val block = event.clickedBlock!!
     }
 }

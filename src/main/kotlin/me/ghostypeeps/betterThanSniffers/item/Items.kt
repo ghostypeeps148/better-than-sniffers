@@ -1,10 +1,11 @@
-package me.ghostypeeps.betterThanSniffers.utils
+package me.ghostypeeps.betterThanSniffers.item
 
-import me.ghostypeeps.betterThanSniffers.utils.api.BlockSmall
-import me.ghostypeeps.betterThanSniffers.utils.api.Item
 import org.bukkit.Material
 import org.bukkit.inventory.ItemRarity
 
+/**
+ * Registers items and works like the Block class, but more polished.
+ */
 object Items {
     lateinit var COPPER_HOE: Item;
     lateinit var COPPER_SHOVEL: Item;

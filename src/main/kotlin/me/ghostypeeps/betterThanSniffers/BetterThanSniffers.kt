@@ -1,15 +1,12 @@
 package me.ghostypeeps.betterThanSniffers
 
-import me.ghostypeeps.betterThanSniffers.commands.Serialize
+import me.ghostypeeps.betterThanSniffers.listeners.EntityDeath
 import me.ghostypeeps.betterThanSniffers.listeners.PlayerBrokeBlock
 import me.ghostypeeps.betterThanSniffers.listeners.PlayerKnapping
-import me.ghostypeeps.betterThanSniffers.utils.CustomRecipeHandler
-import me.ghostypeeps.betterThanSniffers.utils.Items
-import me.ghostypeeps.betterThanSniffers.utils.ResourcePackCreationTest
-import me.ghostypeeps.betterThanSniffers.utils.api.CraftAPI
-import me.ghostypeeps.betterThanSniffers.utils.api.CraftStationSlotType
-import org.bukkit.craftbukkit.generator.CustomChunkGenerator
-import org.bukkit.generator.ChunkGenerator
+import me.ghostypeeps.betterThanSniffers.util.CustomRecipeHandler
+import me.ghostypeeps.betterThanSniffers.item.Items
+import me.ghostypeeps.betterThanSniffers.listeners.PlayerJoined
+import me.ghostypeeps.betterThanSniffers.util.ResourcePackCreationTest
 import org.bukkit.plugin.java.JavaPlugin
 
 
@@ -44,7 +41,8 @@ SOFTWARE.
 class BetterThanSniffers : JavaPlugin() {
     override fun onEnable() {
         dataFolder.mkdirs()
-        getCommand("better-than-sniffers")!!.setExecutor(Serialize())
+        // i am far too lazy to port my command to paper plugin right now so i will not. :( rip easy testing
+        // getCommand("better-than-sniffers")!!.setExecutor(Serialize())
 
         Items.init()
 
@@ -55,14 +53,19 @@ class BetterThanSniffers : JavaPlugin() {
 
     }
 
+
+
+    /*
+
     override fun getDefaultWorldGenerator(worldName: String, id: String?): ChunkGenerator {
         return SnifferWorldGenerator()
     }
-
+    */
     private fun registerListeners() {
         server.pluginManager.registerEvents(PlayerKnapping(), this)
-        // server.pluginManager.registerEvents(PlayerJoined(), this)
+        server.pluginManager.registerEvents(PlayerJoined(), this)
         server.pluginManager.registerEvents(PlayerBrokeBlock(), this)
+        server.pluginManager.registerEvents(EntityDeath(), this)
         // server.pluginManager.registerEvents(PlayerInventoryClick(), this)
     }
     override fun onDisable() {

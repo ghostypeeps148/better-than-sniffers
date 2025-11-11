@@ -1,7 +1,8 @@
 package me.ghostypeeps.betterThanSniffers.commands
 
-import me.ghostypeeps.betterThanSniffers.utils.api.CraftAPI
-import me.ghostypeeps.betterThanSniffers.utils.api.CraftStationSlotType
+import me.ghostypeeps.betterThanSniffers.block.Blocks
+import me.ghostypeeps.betterThanSniffers.gui.CraftAPI
+import me.ghostypeeps.betterThanSniffers.gui.CraftStationSlotType
 import net.kyori.adventure.text.Component
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -9,8 +10,11 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import java.awt.Toolkit
 import java.awt.datatransfer.StringSelection
+import kotlin.math.roundToInt
 
-
+/**
+ * Command code that I need to fix since I made a Paper plugin.
+ */
 class Serialize : CommandExecutor {
     @OptIn(ExperimentalStdlibApi::class)
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
@@ -40,6 +44,9 @@ class Serialize : CommandExecutor {
                     CraftStationSlotType.OUTPUT_LIQ.item,
                     CraftStationSlotType.OUTPUT_LIQ.item
                 )))
+            }
+            if (args[1] == "fake-block-packet-test") {
+                Blocks.testSendFakeBlock(sender, sender.x.roundToInt(), sender.y.roundToInt(), sender.z.roundToInt())
             }
         } else if (args[0] == "send-pack") {
             sender.setResourcePack("http://localhost:16868", null , Component.text("Please install the provided resource pack."), true)

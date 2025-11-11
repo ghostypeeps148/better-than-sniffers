@@ -2,15 +2,15 @@ package me.ghostypeeps.betterThanSniffers.listeners
 
 
 
-import me.ghostypeeps.betterThanSniffers.utils.Items
-import org.bukkit.entity.Player
+import me.ghostypeeps.betterThanSniffers.item.Items
 import org.bukkit.entity.Squid
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.entity.EntityDeathEvent
-import kotlin.random.Random
 
+/**
+ * Runs when an entity dies. Yeah thats it.
+ */
 class EntityDeath : Listener {
 
     @EventHandler
