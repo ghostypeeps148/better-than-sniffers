@@ -6,8 +6,16 @@ import io.netty.channel.ChannelDuplexHandler
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.ChannelPipelineException
 import io.netty.channel.ChannelPromise
+import me.ghostypeeps.betterThanSniffers.util.SnifferUtil
+import net.minecraft.core.IdMap
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.network.RegistryFriendlyByteBuf
+import net.minecraft.network.protocol.configuration.ClientboundRegistryDataPacket
+import net.minecraft.network.protocol.game.ClientboundLevelChunkPacketData
 import net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket
+import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.level.chunk.LevelChunk
 import org.bukkit.craftbukkit.entity.CraftPlayer
 import org.bukkit.entity.Player
 
@@ -26,26 +34,42 @@ object BlockPacketFix {
                         // intercepts with better than sniffers' code
                         if (packet is ClientboundLevelChunkWithLightPacket) {
                             println("Better Than Sniffers intercepted the ClientboundLevelChunkWithLightPacket")
-                            val writeBuf = FriendlyByteBuf(Unpooled.buffer())
+                            val buf = FriendlyByteBuf(Unpooled.buffer())
                             val level = playerNMS.level()
                             val chunk = level.getChunk(packet.x, packet.z)
-                            writeBuf.writeInt(chunk.locX)
-                            writeBuf.writeInt(chunk.locZ)
+                            buf.writeInt(chunk.locX)
+                            buf.writeInt(chunk.locZ)
                             val sections = chunk.sections
                             var primaryBitMask = 0
                             for (i in sections.indices) {
                                 val section = sections[i]
                                 if (section.hasOnlyAir()) continue
-                                val readBuf = FriendlyByteBuf(Unpooled.buffer())
-                                section.states.write(readBuf, null, i)
+                                val r_buf = FriendlyByteBuf(Unpooled.buffer())
+                                section.states.write(r_buf)
+                                val palette = section.states
+                                for (i in 0..palette.size) {
+                                    val old: BlockState = palette.valueFor(i)
+                                    val new: BlockState =
+                                        BuiltInRegistries.BLOCK.byId(BuiltInRegistries.BLOCK.getId(old) - 1)
+
+                                    palette.setValue(i, new)
+                                }
+
                                 primaryBitMask = primaryBitMask or (1 shl i)
                             }
-                            writeBuf.writeVarInt(primaryBitMask)
-
+                            buf.writeVarInt(primaryBitMask)
+                            val bitsPerEntry = buf.readByte()
+                            val paletteSize = buf.readVarInt()
+                            repeat(paletteSize) {
+                                val rawId = buf.readVarInt()
+                                val newId = BuiltInRegistries.BLOCK.getId(Blocks.OAK_PLANKS)
+                                buf.writeVarInt(newId)
+                            }
+                            packet.chunkData.write(RegistryFriendlyByteBuf(buf, SnifferUtil.SERVER.registryAccess()))
                         }
 
                         // writes the rest of the packet instead of reimplementing everything
-                        super.write(ctx, packet, promise)mmmmmmmmm
+                        super.write(ctx, packet, promise)
                     }
                 }
             )

@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "2.2.10"
+    kotlin("jvm") version "2.2.20"
     id("com.gradleup.shadow") version "8.3.0"
     id("xyz.jpenilla.run-paper") version "2.3.1"
     id("io.papermc.paperweight.userdev") version "2.0.0-beta.18"
@@ -24,7 +24,7 @@ dependencies {
         compileOnly("org.geysermc.geyser:api:2.8.3-SNAPSHOT")
     }
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    paperweight.paperDevBundle("1.21.10-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.21.8-R0.1-SNAPSHOT")
 }
 
 tasks {
