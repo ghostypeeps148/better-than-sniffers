@@ -38,7 +38,7 @@ object CustomRecipeHandler {
             removeVanillaRecipe("chiseled_bookshelf")
             removeVanillaRecipe("blast_furnace")
 
-            registerShapedRecipe("compacting_loose_stone",arrayOf("AA","AA"), (ItemType.COBBLESTONE_SLAB), Items.LOOSE_STONE.asItemStack())
+            registerShapedRecipe("compacting_loose_stone",arrayOf("AA","AA"), (ItemType.COBBLESTONE_SLAB).createItemStack(), Items.LOOSE_STONE.asItemStack())
             registerShapelessRecipe("cobblestone_slabs_combining", listOf(
                 ItemType.COBBLESTONE_SLAB.createItemStack(),
                 ItemType.COBBLESTONE_SLAB.createItemStack(),

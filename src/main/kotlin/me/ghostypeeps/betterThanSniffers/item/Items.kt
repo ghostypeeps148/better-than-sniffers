@@ -1,7 +1,7 @@
 package me.ghostypeeps.betterThanSniffers.item
 
-import org.bukkit.Material
 import org.bukkit.inventory.ItemRarity
+import org.bukkit.inventory.ItemType
 
 /**
  * Registers items and works like the Block class, but more polished.

@@ -5,10 +5,10 @@ import me.ghostypeeps.betterThanSniffers.util.SnifferUtil.SNIFFER_ID
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
-import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemRarity
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.ItemType
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
 import java.io.File
@@ -30,7 +30,7 @@ import java.nio.file.StandardOpenOption
 abstract class ItemLike<T : ItemLike<T>>(name: String,
                         val index: String)
 {
-    protected open var item : ItemStack = (ItemType.PRISMARINE_CRYSTALS);
+    protected open var item : ItemStack = ItemType.PRISMARINE_CRYSTALS.createItemStack();
     protected val customItemKey = NamespacedKey(SNIFFER_ID, "item_$index")
 
     init {

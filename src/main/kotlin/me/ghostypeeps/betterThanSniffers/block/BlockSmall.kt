@@ -6,6 +6,7 @@ import me.ghostypeeps.betterThanSniffers.item.ItemLike
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.ItemType
 import org.bukkit.inventory.meta.SkullMeta
 import java.util.HashSet
 import java.util.UUID
@@ -18,7 +19,7 @@ class BlockSmall(name: String, index: String) : ItemLike<BlockSmall>(name, index
     companion object {
         var add_to_geyser_heads : HashSet<String> = HashSet()
     }
-    override var item = (ItemType.PLAYER_HEAD)
+    override var item : ItemStack = (ItemType.PLAYER_HEAD.createItemStack())
     override fun setTexture(tex: String): BlockSmall {
         add_to_geyser_heads.add(tex)
         val meta = item.itemMeta
