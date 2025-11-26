@@ -8,6 +8,7 @@ import org.bukkit.block.data.type.ChiseledBookshelf
 /**
  * Leftover code.
  */
+@Deprecated("leftover")
 class ClientBlock(index : Int) {
     private var blockData : BlockData;
     private var index : Int;
@@ -15,7 +16,7 @@ class ClientBlock(index : Int) {
         if ((index > 255) or (index < 0)) {
             throw IllegalArgumentException("That index does not correspond to a valid blockstate!")
         }
-        val data = Material.CHISELED_BOOKSHELF.createBlockData() as ChiseledBookshelf
+        val data = ItemType.CHISELED_BOOKSHELF.createBlockData() as ChiseledBookshelf
         data.facing = BlockFace.entries[index and 3] // index and 3 will either return 0b00, 0b01, 0b10, 0b11 (0,1,2,3) which corresponds to BlockFace.NORTH, EAST, SOUTH, WEST
         data.setSlotOccupied(0, (index and 4) != 0)
         data.setSlotOccupied(1, (index and 8) != 0)

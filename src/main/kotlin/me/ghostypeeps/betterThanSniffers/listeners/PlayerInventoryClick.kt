@@ -7,7 +7,6 @@ import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.Bukkit
 import org.bukkit.inventory.Inventory
-
 class PlayerInventoryClick : Listener {
 
     private var pouch : Inventory = Bukkit.createInventory(null, 27, Component.text("Pouch"));

@@ -1,5 +1,6 @@
 package me.ghostypeeps.betterThanSniffers
 
+import me.ghostypeeps.betterThanSniffers.block.BlockPacketFix
 import me.ghostypeeps.betterThanSniffers.listeners.EntityDeath
 import me.ghostypeeps.betterThanSniffers.listeners.PlayerBrokeBlock
 import me.ghostypeeps.betterThanSniffers.listeners.PlayerKnapping
@@ -43,7 +44,7 @@ class BetterThanSniffers : JavaPlugin() {
         dataFolder.mkdirs()
         // i am far too lazy to port my command to paper plugin right now so i will not. :( rip easy testing
         // getCommand("better-than-sniffers")!!.setExecutor(Serialize())
-
+        BlockPacketFix.init()
         Items.init()
 
         registerListeners()
@@ -62,9 +63,7 @@ class BetterThanSniffers : JavaPlugin() {
     }
     */
     private fun registerListeners() {
-        server.pluginManager.registerEvents(PlayerKnapping(), this)
         server.pluginManager.registerEvents(PlayerJoined(), this)
-        server.pluginManager.registerEvents(PlayerBrokeBlock(), this)
         server.pluginManager.registerEvents(EntityDeath(), this)
         // server.pluginManager.registerEvents(PlayerInventoryClick(), this)
     }

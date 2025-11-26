@@ -16,13 +16,13 @@ repositories {
     maven {
         url = uri("https://repo.opencollab.dev/main/")
     }
+    maven { url = uri("https://repo.dmulloy2.net/repository/public/") }
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
-    dependencies {
-        compileOnly("org.geysermc.geyser:api:2.8.3-SNAPSHOT")
-    }
+    compileOnly("net.dmulloy2:ProtocolLib:5.4.0")
+    compileOnly("org.geysermc.geyser:api:2.8.3-SNAPSHOT")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     paperweight.paperDevBundle("1.21.8-R0.1-SNAPSHOT")
 }

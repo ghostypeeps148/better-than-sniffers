@@ -18,18 +18,18 @@ import java.lang.reflect.Field
 /**
  * Creates blocks by adding them to the net.minecraft.server Block registry.
  */
+@Deprecated("it does not work :(")
 object Blocks {
     /**
      * This is where the blocks are initialized.
      */
     lateinit var test: Block;
-    lateinit var unmodifiedRegistry: Registry<Block>;
     /**
      * This function is called from SnifferBootstrap, before the server freezes the block registry, so we can add it before the server stops allowing that.
      */
     fun init() {
-        unmodifiedRegistry = BuiltInRegistries.BLOCK
-        val key = ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(SNIFFER_ID, "test"))
+        Blocks()
+        val key = ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("x", "test"))
         test = Block(BlockBehaviour.Properties.of().strength(0.5F, 0.6F).setId(key))
         Registry.register(BuiltInRegistries.BLOCK, key, test)
         println("This Code Is Running1!!!!!!!")

@@ -30,7 +30,7 @@ import java.nio.file.StandardOpenOption
 abstract class ItemLike<T : ItemLike<T>>(name: String,
                         val index: String)
 {
-    protected open var item : ItemStack = ItemStack.of(Material.PRISMARINE_CRYSTALS);
+    protected open var item : ItemStack = (ItemType.PRISMARINE_CRYSTALS);
     protected val customItemKey = NamespacedKey(SNIFFER_ID, "item_$index")
 
     init {

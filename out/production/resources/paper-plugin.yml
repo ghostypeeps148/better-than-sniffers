@@ -1,6 +1,0 @@
-name: BetterThanSniffers
-authors: [Ghostypeeps]
-version: '0.0.1'
-api-version: '1.21.8'
-bootstrapper: me.ghostypeeps.betterThanSniffers.SnifferBootstrap
-main: me.ghostypeeps.betterThanSniffers.BetterThanSniffers

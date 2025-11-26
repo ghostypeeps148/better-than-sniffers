@@ -2,10 +2,14 @@ package me.ghostypeeps.betterThanSniffers.util
 
 import me.ghostypeeps.betterThanSniffers.item.Items
 import me.ghostypeeps.betterThanSniffers.util.SnifferUtil.SNIFFER_PLUGIN
+import net.minecraft.world.item.Item
+import net.minecraft.world.level.block.Blocks
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.Tag
+import org.bukkit.craftbukkit.entity.CraftItem
+import org.bukkit.craftbukkit.inventory.CraftItemStack
 import org.bukkit.inventory.*
 
 // utility class
@@ -34,11 +38,11 @@ object CustomRecipeHandler {
             removeVanillaRecipe("chiseled_bookshelf")
             removeVanillaRecipe("blast_furnace")
 
-            registerShapedRecipe("compacting_loose_stone",arrayOf("AA","AA"), ItemStack.of(Material.COBBLESTONE_SLAB), Items.LOOSE_STONE.asItemStack())
+            registerShapedRecipe("compacting_loose_stone",arrayOf("AA","AA"), (ItemType.COBBLESTONE_SLAB), Items.LOOSE_STONE.asItemStack())
             registerShapelessRecipe("cobblestone_slabs_combining", listOf(
-                ItemStack.of(Material.COBBLESTONE_SLAB),
-                ItemStack.of(Material.COBBLESTONE_SLAB)
-            ), ItemStack.of(Material.COBBLESTONE))
+                ItemType.COBBLESTONE_SLAB.createItemStack(),
+                ItemType.COBBLESTONE_SLAB.createItemStack(),
+                ), ItemType.COBBLESTONE.createItemStack())
             registerShapelessRecipe("rocks", listOf(
                 Items.LOOSE_STONE.asItemStack(),
                 Items.LOOSE_STONE.asItemStack(),
@@ -49,41 +53,41 @@ object CustomRecipeHandler {
                 Items.LOOSE_STONE.asItemStack(),
                 Items.LOOSE_STONE.asItemStack(),
                 Items.LOOSE_STONE.asItemStack()
-            ), ItemStack.of(Material.COBBLESTONE_SLAB))
+            ), ItemType.COBBLESTONE_SLAB.createItemStack())
             registerShapelessRecipe("tanned_leather",listOf(
-                ItemStack.of(Material.PACKED_MUD),
-                ItemStack.of(Material.LEATHER),
+                ItemType.PACKED_MUD.createItemStack(),
+                ItemType.LEATHER.createItemStack(),
             ), Items.TANNED_LEATHER.asItemStack())
             registerShapelessRecipe("reinforced_stick",listOf(
                 Items.TANNED_LEATHER.asItemStack(),
-                ItemStack.of(Material.STICK),
-                ItemStack.of(Material.STICK),
-                ItemStack.of(Material.STICK)
+                ItemType.STICK.createItemStack(),
+                ItemType.STICK.createItemStack(),
+                ItemType.STICK.createItemStack()
             ), Items.REINFORCED_STICK.asItemStack())
-            registerCampfireRecipe("clay_to_bricks", ItemStack.of(Material.BRICK), ItemStack.of(Material.CLAY_BALL), 0.1f, 2400)
+            registerCampfireRecipe("clay_to_bricks", ItemType.BRICK.createItemStack(), ItemType.CLAY_BALL.createItemStack(), 0.1f, 2400)
             registerCampfireRecipe("calamari", Items.COOKED_CALAMARI.asItemStack(), Items.CALAMARI.asItemStack(), 0.1f, 2400)
-            registerShapedRecipe("axe_cast",arrayOf("AA","A "), Items.AXE_CAST.asItemStack(), ItemStack.of(Material.BRICK))
-            registerShapedRecipe("hoe_cast",arrayOf("AA"),  Items.HOE_CAST.asItemStack(), ItemStack.of(Material.BRICK))
-            registerShapedRecipe("pickaxe_cast",arrayOf("AAA"),  Items.PICKAXE_CAST.asItemStack(), ItemStack.of(Material.BRICK))
-            registerShapedRecipe("shovel_cast",arrayOf("A"),  Items.SHOVEL_CAST.asItemStack(), ItemStack.of(Material.BRICK))
-            registerShapedRecipe("sword_cast",arrayOf("A","A"), Items.SWORD_CAST.asItemStack(), ItemStack.of(Material.BRICK))
-            registerShapelessRecipe("copper_axe", listOf(Items.AXE_CAST.asItemStack(), ItemStack.of(Material.COPPER_INGOT), Items.REINFORCED_STICK.asItemStack()), ItemStack.of(Material.STONE_AXE))
-            registerShapelessRecipe("copper_hoe", listOf(Items.HOE_CAST.asItemStack(), ItemStack.of(Material.COPPER_INGOT), Items.REINFORCED_STICK.asItemStack()), ItemStack.of(Material.STONE_HOE))
-            registerShapelessRecipe("copper_pickaxe", listOf(Items.PICKAXE_CAST.asItemStack(), ItemStack.of(Material.COPPER_INGOT), Items.REINFORCED_STICK.asItemStack()), ItemStack.of(Material.STONE_PICKAXE))
-            registerShapelessRecipe("copper_shovel", listOf(Items.SHOVEL_CAST.asItemStack(), ItemStack.of(Material.COPPER_INGOT), Items.REINFORCED_STICK.asItemStack()), ItemStack.of(Material.STONE_SHOVEL))
-            registerShapelessRecipe("copper_sword", listOf(Items.SWORD_CAST.asItemStack(), ItemStack.of(Material.COPPER_INGOT), Items.REINFORCED_STICK.asItemStack()), ItemStack.of(Material.STONE_SWORD))
-            registerShapelessRecipe("iron_axe", listOf(Items.AXE_CAST.asItemStack(), ItemStack.of(Material.IRON_INGOT), Items.REINFORCED_STICK.asItemStack()), ItemStack.of(Material.IRON_AXE))
-            registerShapelessRecipe("iron_hoe", listOf(Items.HOE_CAST.asItemStack(), ItemStack.of(Material.IRON_INGOT), Items.REINFORCED_STICK.asItemStack()), ItemStack.of(Material.IRON_HOE))
-            registerShapelessRecipe("iron_pickaxe", listOf(Items.PICKAXE_CAST.asItemStack(), ItemStack.of(Material.IRON_INGOT), Items.REINFORCED_STICK.asItemStack()), ItemStack.of(Material.IRON_PICKAXE))
-            registerShapelessRecipe("iron_shovel", listOf(Items.SHOVEL_CAST.asItemStack(), ItemStack.of(Material.IRON_INGOT), Items.REINFORCED_STICK.asItemStack()), ItemStack.of(Material.IRON_SHOVEL))
-            registerShapelessRecipe("iron_sword", listOf(Items.SWORD_CAST.asItemStack(), ItemStack.of(Material.IRON_INGOT), Items.REINFORCED_STICK.asItemStack()), ItemStack.of(Material.IRON_SWORD))
-            registerShapedRecipe("smooth_stone",arrayOf("AA","AA"), ItemStack.of(Material.SMOOTH_STONE, 4), ItemStack.of(Material.COBBLESTONE))
-            registerShapedRecipe("smithing_table",arrayOf("AA","BB","BB"), ItemStack.of(Material.SMITHING_TABLE), ItemStack.of(Material.SMOOTH_STONE), RecipeChoice.MaterialChoice(Tag.LOGS).itemStack);
-            registerShapedRecipe("furnace",arrayOf("AAA","A A","AAA"), ItemStack.of(Material.FURNACE), ItemStack.of(Material.BRICKS));
-            registerShapedRecipe("blast_furnace",arrayOf("AAA","ABA","CCC"), ItemStack.of(Material.BLAST_FURNACE), ItemStack.of(Material.SMOOTH_STONE), ItemStack.of(Material.DIAMOND),
-                ItemStack.of(Material.COPPER_BLOCK));
+            registerShapedRecipe("axe_cast",arrayOf("AA","A "), Items.AXE_CAST.asItemStack(), ItemType.BRICK.createItemStack())
+            registerShapedRecipe("hoe_cast",arrayOf("AA"),  Items.HOE_CAST.asItemStack(), ItemType.BRICK.createItemStack())
+            registerShapedRecipe("pickaxe_cast",arrayOf("AAA"),  Items.PICKAXE_CAST.asItemStack(), (ItemType.BRICK).createItemStack())
+            registerShapedRecipe("shovel_cast",arrayOf("A"),  Items.SHOVEL_CAST.asItemStack(), (ItemType.BRICK).createItemStack())
+            registerShapedRecipe("sword_cast",arrayOf("A","A"), Items.SWORD_CAST.asItemStack(), (ItemType.BRICK).createItemStack())
+            registerShapelessRecipe("copper_axe", listOf(Items.AXE_CAST.asItemStack(), (ItemType.COPPER_INGOT).createItemStack(), Items.REINFORCED_STICK.asItemStack()), (ItemType.STONE_AXE).createItemStack())
+            registerShapelessRecipe("copper_hoe", listOf(Items.HOE_CAST.asItemStack(), (ItemType.COPPER_INGOT).createItemStack(), Items.REINFORCED_STICK.asItemStack()), (ItemType.STONE_HOE).createItemStack())
+            registerShapelessRecipe("copper_pickaxe", listOf(Items.PICKAXE_CAST.asItemStack(), (ItemType.COPPER_INGOT).createItemStack(), Items.REINFORCED_STICK.asItemStack()), (ItemType.STONE_PICKAXE).createItemStack())
+            registerShapelessRecipe("copper_shovel", listOf(Items.SHOVEL_CAST.asItemStack(), (ItemType.COPPER_INGOT).createItemStack(), Items.REINFORCED_STICK.asItemStack()), (ItemType.STONE_SHOVEL.createItemStack()))
+            registerShapelessRecipe("copper_sword", listOf(Items.SWORD_CAST.asItemStack(), (ItemType.COPPER_INGOT).createItemStack(), Items.REINFORCED_STICK.asItemStack()), (ItemType.STONE_SWORD.createItemStack()))
+            registerShapelessRecipe("iron_axe", listOf(Items.AXE_CAST.asItemStack(), (ItemType.IRON_INGOT).createItemStack(), Items.REINFORCED_STICK.asItemStack()), (ItemType.IRON_AXE).createItemStack())
+            registerShapelessRecipe("iron_hoe", listOf(Items.HOE_CAST.asItemStack(), (ItemType.IRON_INGOT).createItemStack(), Items.REINFORCED_STICK.asItemStack()), (ItemType.IRON_HOE).createItemStack())
+            registerShapelessRecipe("iron_pickaxe", listOf(Items.PICKAXE_CAST.asItemStack(), (ItemType.IRON_INGOT).createItemStack(), Items.REINFORCED_STICK.asItemStack()), (ItemType.IRON_PICKAXE).createItemStack())
+            registerShapelessRecipe("iron_shovel", listOf(Items.SHOVEL_CAST.asItemStack(), (ItemType.IRON_INGOT).createItemStack(), Items.REINFORCED_STICK.asItemStack()), (ItemType.IRON_SHOVEL).createItemStack())
+            registerShapelessRecipe("iron_sword", listOf(Items.SWORD_CAST.asItemStack(), (ItemType.IRON_INGOT).createItemStack(), Items.REINFORCED_STICK.asItemStack()), (ItemType.IRON_SWORD).createItemStack())
+            registerShapedRecipe("smooth_stone",arrayOf("AA","AA"), ItemType.SMOOTH_STONE.createItemStack(), ItemType.COBBLESTONE.createItemStack())
+            registerShapedRecipe("smithing_table",arrayOf("AA","BB","BB"), ItemType.SMITHING_TABLE.createItemStack(), ItemType.SMOOTH_STONE.createItemStack(), ItemType.SMOOTH_STONE_SLAB.createItemStack());
+            registerShapedRecipe("furnace",arrayOf("AAA","A A","AAA"), ItemType.FURNACE.createItemStack(), ItemType.BRICKS.createItemStack());
+            registerShapedRecipe("blast_furnace",arrayOf("AAA","ABA","CCC"), (ItemType.BLAST_FURNACE).createItemStack(), (ItemType.SMOOTH_STONE).createItemStack(), (ItemType.DIAMOND).createItemStack(),
+                (ItemType.COPPER_BLOCK).createItemStack());
             if (Trains.isTrains()) {
-                registerShapedRecipe("i_like_trains", arrayOf("AAB","CAB"," CA"), Items.TRAIN.asItemStack(), ItemStack.of(Material.COBBLESTONE), ItemStack.of(Material.DIRT),ItemStack(Material.STICK))
+                registerShapedRecipe("i_like_trains", arrayOf("AAB","CAB"," CA"), Items.TRAIN.asItemStack(), (ItemType.COBBLESTONE.createItemStack()), (ItemType.DIRT).createItemStack(),(ItemType.STICK.createItemStack()))
             }
         }
 
@@ -108,7 +112,6 @@ object CustomRecipeHandler {
             key3?.let {r.setIngredient('C', key3)}
             Bukkit.getServer().addRecipe(r)
         }
-
         private fun removeVanillaRecipe(id : String) {
             Bukkit.getServer().removeRecipe(NamespacedKey(NamespacedKey.MINECRAFT,id))
         }

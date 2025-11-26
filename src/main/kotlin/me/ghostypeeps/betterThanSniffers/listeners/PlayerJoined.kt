@@ -14,7 +14,5 @@ class PlayerJoined : Listener {
     fun setAttributes(event: PlayerJoinEvent) {
         val player = event.player
         player.getAttribute(Attribute.MAX_HEALTH)!!.baseValue = 10.0;
-        BlockPacketFix.interceptChunkData(player)
     }
-
 }

@@ -13,11 +13,12 @@ import java.util.UUID
 /**
  * Test.
  */
+@Deprecated("unfunctional")
 class BlockSmall(name: String, index: String) : ItemLike<BlockSmall>(name, index) {
     companion object {
         var add_to_geyser_heads : HashSet<String> = HashSet()
     }
-    override var item = ItemStack.of(Material.PLAYER_HEAD)
+    override var item = (ItemType.PLAYER_HEAD)
     override fun setTexture(tex: String): BlockSmall {
         add_to_geyser_heads.add(tex)
         val meta = item.itemMeta

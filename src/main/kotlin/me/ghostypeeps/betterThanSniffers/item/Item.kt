@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack
  */
 open class Item(name: String, index: String) : ItemLike<Item>(name, index) {
     fun setBaseMaterial(baseMaterial: Material) : Item {
-        this.item = ItemStack.of(baseMaterial)
+        this.item = (baseMaterial)
         return this
     }
 }

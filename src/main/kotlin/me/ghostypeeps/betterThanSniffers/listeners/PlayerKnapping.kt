@@ -9,7 +9,6 @@ import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 
-
 class PlayerKnapping : Listener {
     @EventHandler
     fun rightClickHandler(event: PlayerInteractEvent) {
@@ -17,7 +16,7 @@ class PlayerKnapping : Listener {
             event.player.sendMessage("i like trains")
         }
         if (event.action == Action.RIGHT_CLICK_BLOCK && event.item == Items.SAW.asItemStack()) {
-            //event.clickedBlock == Material.STONE_STAIRS
+            //event.clickedBlock == ItemType.STONE_STAIRS
         }
         if (event.clickedBlock == null) {
             return

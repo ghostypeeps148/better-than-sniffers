@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack
 object CraftAPI : InventoryHolder {
     const val NUMBER_SLOTS = 9;
     private var inventory: Inventory = Bukkit.createInventory(this, NUMBER_SLOTS);
-    val BUCKETS = hashSetOf(Material.WATER_BUCKET, Material.LAVA_BUCKET)
+    val BUCKETS = hashSetOf(ItemType.WATER_BUCKET, ItemType.LAVA_BUCKET)
     // exists solely for the purpose of satisfying the interface
     override fun getInventory(): Inventory {
         return inventory;
