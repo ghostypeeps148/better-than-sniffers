@@ -1,6 +1,5 @@
 package me.ghostypeeps.betterThanSniffers.block
 
-import ca.spottedleaf.moonrise.patches.fast_palette.FastPaletteData
 import com.comphenix.protocol.PacketType
 import com.comphenix.protocol.ProtocolLibrary
 import com.comphenix.protocol.ProtocolManager
@@ -9,29 +8,29 @@ import com.comphenix.protocol.events.ListenerPriority
 import com.comphenix.protocol.events.PacketAdapter
 import com.comphenix.protocol.events.PacketEvent
 import com.comphenix.protocol.wrappers.WrappedLevelChunkData
-import com.comphenix.protocol.wrappers.WrappedLevelChunkData.LightData
 import io.netty.buffer.Unpooled
-import io.netty.channel.Channel
 import io.papermc.paper.antixray.ChunkPacketInfo
 import me.ghostypeeps.betterThanSniffers.util.SnifferUtil
 import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.network.VarInt
 import net.minecraft.network.protocol.game.ClientboundLevelChunkPacketData
 import net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket
+import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
-import net.minecraft.world.level.block.state.BlockState
-import org.bukkit.block.Block
 import org.bukkit.craftbukkit.entity.CraftPlayer
-import org.bukkit.inventory.ItemType
-import sun.misc.Unsafe
 import java.lang.reflect.Field
 
 
+// todo: code could have some minor optimizations done
 object BlockPacketFix {
-    private val unsafe : Unsafe
+    // temporary
+    val testMap = mapOf(
+        Block.BLOCK_STATE_REGISTRY.getIdOrThrow(Blocks.STONE.defaultBlockState()) to Block.BLOCK_STATE_REGISTRY.getIdOrThrow(Blocks.DIRT.defaultBlockState()),
+        Block.BLOCK_STATE_REGISTRY.getIdOrThrow(Blocks.WATER.defaultBlockState()) to Block.BLOCK_STATE_REGISTRY.getIdOrThrow(Blocks.WAXED_EXPOSED_CHISELED_COPPER.defaultBlockState())
+        )
+    val buffer : Field = ClientboundLevelChunkPacketData::class.java.getDeclaredField("d")
     init {
-        val unsafeField: Field = Unsafe::class.java.getDeclaredField("theUnsafe")
-        unsafeField.isAccessible = true
-        unsafe = unsafeField.get(null) as Unsafe
+        buffer.isAccessible = true
     }
     fun init() {
         val m : ProtocolManager = ProtocolLibrary.getProtocolManager()
@@ -39,49 +38,90 @@ object BlockPacketFix {
             object : PacketAdapter(SnifferUtil.SNIFFER_PLUGIN, ListenerPriority.NORMAL, listOf(PacketType.Play.Server.MAP_CHUNK), ListenerOptions.ASYNC) {
                 override fun onPacketSending(event: PacketEvent) {
                     val packet = event.packet
-                    val nmsPacket = event.packet.handle as ClientboundLevelChunkWithLightPacket
+                    val nmsPacket = packet.handle as ClientboundLevelChunkWithLightPacket
                     val nmsPlayer = (event.player as CraftPlayer).handle
+                    val level = nmsPlayer.level()
                     val x = nmsPacket.x
                     val z = nmsPacket.z
-                    val level = nmsPlayer.level()
                     val chunk = level.getChunk(x, z)
                     val sections = chunk.sections
-                    val chunkPacketInfo = ChunkPacketInfo<BlockState>(nmsPacket, chunk)
-                    for (i in sections.indices) {
+                    val buf = FriendlyByteBuf(Unpooled.copiedBuffer(nmsPacket.chunkData.readBuffer))
+                    // Mark the writer index at the end of the data
+                    buf.markWriterIndex()
+                    sections@ for (i in sections.indices) {
+                        // Get section
                         val section = sections[i]
-                        if (section.hasOnlyAir()) continue
-                        val buf = FriendlyByteBuf(Unpooled.buffer())
-                        section.states.data.palette().write(buf)
-                        println(buf.readByteArray().toHexString())
+                        println("SECTION: $i")
+                        if (section.hasOnlyAir()) {
+                            // section is air so we just skip the whole section
+                            buf.skipBytes(section.serializedSize)
+                            println("Section is air")
+                            continue
+                        }
+                        // Ignore the Block Count value + BPE
+                        buf.skipBytes(3)
+                        // Mark before write so we can come back to write
+                        val indexBeforePalette = buf.readerIndex()
+                        // Write the elements but not before modifying it
+                        val elements: IntArray = buf.readVarIntArray()
+
+                        val indexAfterPalette = buf.readerIndex()
+
+                        val new = elements.map {
+                            return@map testMap[it] ?: it
+                        }.toIntArray()
+
+                        // the next section can almost definitely be optimized but I am not sure how so I would appreciate help
+
+                        // Optimization: No need to modify anything if arrays are still equal
+                        if (new.contentEquals(elements)) {
+                            buf.skipBytes(section.states.data.storage().raw.size * 8 + section.biomes.serializedSize)
+                            println("Content is equal")
+                            continue
+                        }
+                        // Additionally, if byte size is equal then no need to do offsets and we can not assume offsets
+                        val serializedOfNew = new.sumOf { return@sumOf VarInt.getByteSize(it) }
+                        println("Serialized size of new array: $serializedOfNew")
+                        println("Old: " + ((indexAfterPalette - indexBeforePalette)-1))
+                        // Check if offsets. Instead of wasting time calculating size of old array we can use the saved reader indexes.
+                        buf.readerIndex(indexBeforePalette)
+                        // OBOEs for some reason
+                        if (serializedOfNew + 1 != indexAfterPalette - indexBeforePalette) {
+                            println("Offsets are happening but my handler sucks")
+                            val t = buf.slice(indexAfterPalette, buf.writerIndex() - indexAfterPalette)
+                            println("Ind after: $indexAfterPalette")
+                            println("Writer index: " + buf.writerIndex())
+                            buf.writerIndex(indexBeforePalette)
+                            buf.writeVarIntArray(new)
+                            new.forEach {
+                                println(Block.BLOCK_STATE_REGISTRY.byId(it))
+                            }
+                            buf.readerIndex(buf.writerIndex())
+                            buf.writeBytes(t)
+                            buf.markWriterIndex()
+                        } else {
+                            println("No offset")
+                            // Bring writer index to the new location and write it in directly, so no really long buffer copying
+                            buf.writerIndex(indexBeforePalette)
+                            buf.writeVarIntArray(new)
+                            buf.resetWriterIndex()
+                            buf.readerIndex(indexAfterPalette)
+                        }
+                        buf.skipBytes(section.states.data.storage().raw.size * 8 + section.biomes.serializedSize)
                     }
-                    val chunkData = WrappedLevelChunkData.ChunkData(chunkPacketInfo)
-                    packet.levelChunkData.write(0, chunkData)
-                    packet.lightUpdateData.write(0, LightData(nmsPacket.lightData))
-                    // event.setPacket(packet)
+
+                    // Make a chunk data
+                    val chunkData = ClientboundLevelChunkPacketData(chunk, ChunkPacketInfo(nmsPacket, chunk))
+                    // reflection yippee. It's much easier to set the buffer using reflection so that's what I'm doing
+                    buffer.set(chunkData, buf.array())
+                    // Wrap the NMS data
+                    val wrappedData = WrappedLevelChunkData.ChunkData(chunkData)
+                    // Write the wrapped data
+                    packet.levelChunkData.write(0, wrappedData)
+
+                    event.packet = packet
                 }
             }
         )
     }
-
 }
-/*
-val ml = ArrayList<BlockState>()
-                        section.states.data.`moonrise$getPalette`().forEach {
-                            try {
-                                if (it.block != Blocks.DIRT) {
-                                    ml.add(it)
-                                } else {
-                                    ml.add(Blocks.OAK_PLANKS.defaultBlockState())
-                                }
-                            } catch (_: Exception) {
-                                ml.add(Blocks.AIR.defaultBlockState())
-                            }
-                        }
-                        val mlArr = ml.toArray(arrayOfNulls<BlockState>(ml.size))
-                        val tmp = section.copy().states.data
-                        tmp.`moonrise$setPalette`(mlArr)
-                        chunkPacketInfo.setPalette(i, tmp.palette())
-                        chunkPacketInfo.getPalette(i).`moonrise$getRawPalette`(tmp).forEach {
-                            println(it)
-                        }
- */

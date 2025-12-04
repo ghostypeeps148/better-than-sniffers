@@ -14,9 +14,8 @@ import me.ghostypeeps.betterThanSniffers.block.Blocks
 /**
  * Runs before the server starts, so I can modify the registries.
  */
-@SuppressWarnings("UnstableApiUsage")
-@Deprecated("not neccessary rn")
 class SnifferBootstrap : PluginBootstrap {
     override fun bootstrap(context: BootstrapContext) {
+        Blocks.init()
     }
 }

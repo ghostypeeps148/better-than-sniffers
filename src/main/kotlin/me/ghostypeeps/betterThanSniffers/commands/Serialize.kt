@@ -45,9 +45,6 @@ class Serialize : CommandExecutor {
                     CraftStationSlotType.OUTPUT_LIQ.item
                 )))
             }
-            if (args[1] == "fake-block-packet-test") {
-                Blocks.testSendFakeBlock(sender, sender.x.roundToInt(), sender.y.roundToInt(), sender.z.roundToInt())
-            }
         } else if (args[0] == "send-pack") {
             sender.setResourcePack("http://localhost:16868", null , Component.text("Please install the provided resource pack."), true)
             return true;
